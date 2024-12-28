@@ -27,3 +27,33 @@ button.pack()
 
 
 root.mainloop()
+
+import requests
+import os
+import sys
+from pyupdater.client import Client
+
+APP_NAME = "UI"
+APP_VERSION = "1.0"  # 初始版本号，需与实际发布版本一致
+
+def check_for_updates():
+    client = Client(APP_NAME, APP_VERSION, update_urls=['https://github.com/your_username/UIProgramRepo/releases'])
+    update_info = client.update_check()
+    if update_info is not None:
+        print("有可用更新！")
+        if update_info['status'] == 'available':
+            client.download_update(update_info)
+            print("更新下载完成。")
+            # 以下代码用于在Windows系统下重新启动程序
+            if sys.platform.startswith('win'):
+                os.execl(sys.executable, os.path.abspath(__file__), *sys.argv)
+            else:
+                os.execv(sys.executable, [sys.executable] + sys.argv)
+    else:
+        print("没有可用更新。")
+
+if __name__ == "__main__":
+    check_for_updates()
+    # 这里添加主程序的其他代码，如启动UI等
+    # 假设你的UI启动代码在start_ui函数中
+    # start_ui()
