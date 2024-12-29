@@ -1,1 +1,1 @@
-python setup.py build
+pyinstaller --onefile --collect-all cffi --windowed UI.py
