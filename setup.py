@@ -1,17 +1,30 @@
-import sys
-from cx_Freeze import setup, Executable
+import setuptools
+import pyupdater
 
-build_exe_options = {
-    "packages": ["cffi"],  # 将'cffi'添加到要包含的包列表中
-    "includes": ["nacl.bindings", "nacl.sodium"],  # 添加可能相关的其他依赖模块
-    "excludes": [],
-    "include_files": [],
-}
+APP_NAME = 'UI'
+APP_VERSION = 1.2.1'
 
-setup(
-    name="UI",
-    version="1.2",
-    description="test",
-    options={"build_exe": build_exe_options},
-    executables=[Executable("UI.py")]
+setuptools.setup(
+    name=APP_NAME,
+    version=APP_VERSION,
+    description='test',
+    author='WanAn',
+    author_email='584981015@qq.com',
+    url='https://github.com/584981015/UI',
+    packages=setuptools.find_packages(),
+    install_requires=[
+        'pyupdater',
+        # 其他依赖项
+    ],
+    entry_points={
+        'console_scripts': [
+            'your_app_name = your_package_name.main:main',
+        ],
+    },
+    classifiers=[
+        # 分类信息，可根据实际情况填写
+    ],
+    cmdclass={
+        'pyupdater': pyupdater.PyUpdaterCommand,
+    },
 )
